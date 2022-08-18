@@ -1,0 +1,36 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+bool traverse(TreeNode* root,int B, vector<int>&visited_values,vector<int>&ans)
+{
+    if(root == NULL) return false;
+    visited_values.push_back(root->val);
+    if(root -> val == B) 
+    {
+        ans = visited_values;
+        return true;
+    }
+    else
+    {   
+       if(! traverse(root->left,B,visited_values,ans) && (! traverse(root->right,B,visited_values,ans)))
+       {
+         visited_values.pop_back();
+         return false;
+       }
+       return true;
+    }
+    
+}
+vector<int> Solution::solve(TreeNode* A, int B) {
+    vector<int> visited_values;
+    vector<int> ans;
+  
+    traverse(A,B,visited_values,ans);
+    return ans;
+}
